@@ -28,6 +28,6 @@ class SearchShowsByNameTest extends TestCase
     {
         Http::fake(['*' => Http::response(['show-1', 'show-2', 'show-3'], $status)]);
 
-        $this->assertEquals($responseBody, (new TVMazeClient())->searchShowsByName('show'));
+        $this->assertEquals(collect($responseBody), (new TVMazeClient())->searchShowsByName('show'));
     }
 }
