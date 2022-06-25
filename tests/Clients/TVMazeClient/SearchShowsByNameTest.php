@@ -13,7 +13,8 @@ class SearchShowsByNameTest extends TestCase
     {
         return [
             [['show-1', 'show-2', 'show-3'], Response::HTTP_OK],
-            [null, Response::HTTP_BAD_REQUEST]
+            [null, Response::HTTP_BAD_REQUEST],
+            [null, Response::HTTP_INTERNAL_SERVER_ERROR],
         ];
     }
 
