@@ -17,7 +17,10 @@
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^6.1",
         "phpunit/phpunit": "^9.5.10",
-        "spatie/laravel-ignition": "^1.0"
+        "spatie/laravel-ignition": "^1.0",
+        "nunomaduro/larastan": "^2.1",
+        "friendsofphp/php-cs-fixer": "^3.8",
+        "enlightn/security-checker": "^1.5"
     },
     "autoload": {
         "psr-4": {
