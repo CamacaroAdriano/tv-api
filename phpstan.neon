@@ -3,9 +3,11 @@ includes:
 
 parameters:
     # The level 9 is the highest level
-    level: 6
+    level: 5
     paths:
         - tests
+        - src
 
     checkMissingIterableValueType: false
+    checkGenericClassInNonGenericObjectType: false
     noUnnecessaryCollectionCall: false

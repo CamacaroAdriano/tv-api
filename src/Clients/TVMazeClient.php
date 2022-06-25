@@ -32,7 +32,7 @@ class TVMazeClient implements TVMazeClientContract
      * Throws Exception with error code 502 if external API returns >=500 status code.
      *
      * @param string $path
-     * @param ?array|string[]|int[] $queryParams
+     * @param string[]|null $queryParams
      * @return ?ClientResponse
      * @throws Exception
      */
