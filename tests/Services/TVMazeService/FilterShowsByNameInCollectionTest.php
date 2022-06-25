@@ -13,28 +13,28 @@ class FilterShowsByNameInCollectionTest extends TestCase
 
         $providers[] = [
             'Deadwood',
-            [['show' => ['name' => 'Deadwood']]]
+            [['show' => ['name' => 'Deadwood']]],
         ];
 
         $providers[] = [
             'deadwood',
-            [['show' => ['name' => 'Deadwood']]]
+            [['show' => ['name' => 'Deadwood']]],
         ];
 
         $providers[] = [
             'Dead',
             [
                 ['show' => ['name' => 'Deadpool']],
-                ['show' => ['name' => 'Deadwood']]
-            ]
+                ['show' => ['name' => 'Deadwood']],
+            ],
         ];
 
         $providers[] = [
             'dead',
             [
                 ['show' => ['name' => 'Deadpool']],
-                ['show' => ['name' => 'Deadwood']]
-            ]
+                ['show' => ['name' => 'Deadwood']],
+            ],
         ];
 
         $providers[] = [
@@ -42,7 +42,7 @@ class FilterShowsByNameInCollectionTest extends TestCase
             [
                 ['show' => ['name' => 'Redwood Kings']],
                 ['show' => ['name' => 'Deadwood']],
-            ]
+            ],
         ];
 
         $providers[] = [
@@ -50,7 +50,7 @@ class FilterShowsByNameInCollectionTest extends TestCase
             [
                 ['show' => ['name' => 'Redwood Kings']],
                 ['show' => ['name' => 'Deadwood']],
-            ]
+            ],
         ];
 
         $providers[] = [
@@ -59,7 +59,7 @@ class FilterShowsByNameInCollectionTest extends TestCase
                 ['show' => ['name' => 'Deadpool']],
                 ['show' => ['name' => 'Redwood Kings']],
                 ['show' => ['name' => 'Deadwood']],
-            ]
+            ],
         ];
 
         $providers[] = ['random', []];
