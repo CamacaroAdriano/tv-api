@@ -14,3 +14,5 @@ yarn-error.log
 /.vscode
 composer.lock
 .php-cs-fixer.cache
+.phpcs-cache
+.phpstorm.meta.php
