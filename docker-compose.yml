@@ -1,13 +1,14 @@
 # For more information: https://laravel.com/docs/sail
 version: '3'
 services:
-    laravel.test:
+    tv_app:
         build:
             context: ./vendor/laravel/sail/runtimes/8.1
             dockerfile: Dockerfile
             args:
                 WWWGROUP: '${WWWGROUP}'
         image: sail-8.1/app
+        container_name: tv_app
         extra_hosts:
             - 'host.docker.internal:host-gateway'
         ports:
@@ -22,12 +23,13 @@ services:
         networks:
             - sail
         depends_on:
-            - mysql
-            - redis
-    mysql:
+            - tv_mysql
+            - tv_redis
+    tv_mysql:
         image: 'mysql/mysql-server:8.0'
+        container_name: tv_mysql
         ports:
-            - '${FORWARD_DB_PORT:-3306}:3306'
+            - '${DB_PORT:-3306}:3306'
         environment:
             MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
             MYSQL_ROOT_HOST: "%"
@@ -44,10 +46,11 @@ services:
             test: ["CMD", "mysqladmin", "ping", "-p${DB_PASSWORD}"]
             retries: 3
             timeout: 5s
-    redis:
+    tv_redis:
         image: 'redis:alpine'
+        container_name: tv_redis
         ports:
-            - '${FORWARD_REDIS_PORT:-6379}:6379'
+            - '${REDIS_PORT:-6379}:6379'
         volumes:
             - 'sail-redis:/data'
         networks:
