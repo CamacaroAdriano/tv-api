@@ -5,7 +5,10 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Src\Clients\TVMazeClient;
 use Src\Contracts\TVMazeClient as TVMazeClientContract;
+use Src\Contracts\TVMazeService as TVMazeServiceContract;
+use Src\Services\TVMazeService;
 use Tests\Mocks\Clients\TVMazeClientMock;
+use Tests\Mocks\Services\TVMazeServiceMock;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -18,8 +21,10 @@ class AppServiceProvider extends ServiceProvider
     {
         if ($this->app->environment() === 'testing') {
             $this->app->bind(TVMazeClientContract::class, TVMazeClientMock::class);
+            $this->app->bind(TVMazeServiceContract::class, TVMazeServiceMock::class);
         } else {
             $this->app->bind(TVMazeClientContract::class, TVMazeClient::class);
+            $this->app->bind(TVMazeServiceContract::class, TVMazeService::class);
         }
     }
 
