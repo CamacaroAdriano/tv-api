@@ -7,6 +7,7 @@ namespace Src\Clients;
 use Exception;
 use Illuminate\Http\Client\Response as ClientResponse;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Cache;
 use Symfony\Component\HttpFoundation\Response;
 use function env;
 use Illuminate\Support\Facades\Http;
@@ -19,10 +20,21 @@ class TVMazeClient implements TVMazeClientContract
     /** @inheritdoc */
     public function searchShowsByName(string $showName): Collection
     {
+        // If results for showName in input are cached, return stored value
+        if (Cache::has($showName)) {
+            return Cache::get($showName);
+        }
+
         /** @var ?ClientResponse $response */
         $response = $this->makeGetRequest(self::SEARCH_SHOW_PATH, ['q' => $showName]);
 
-        return !empty($response) ? $response->collect() : collect();
+        /** @var Collection $shows */
+        $shows = !empty($response) ? $response->collect() : collect();
+
+        // Caching of response content for subsequent requests with the same showName
+        Cache::put($showName, $shows, now()->addHour());
+
+        return $shows;
     }
 
     /**
