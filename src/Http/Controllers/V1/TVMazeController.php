@@ -29,6 +29,10 @@ class TVMazeController extends Controller
      */
     public function searchShowsByName(Request $request): JsonResponse
     {
+        if (!$request->has('q')) {
+            throw new Exception('Missing required parameter: q', Response::HTTP_BAD_REQUEST);
+        }
+
         /** @var ?string $showName */
         $showName = $request->query('q', '');
 
