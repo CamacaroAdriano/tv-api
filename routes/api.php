@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Src\Http\Controllers\V1\TVMazeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +14,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::get('/', [TVMazeController::class, 'searchShowsByName'])
+    ->name('shows.search-by-name');

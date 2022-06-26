@@ -12,7 +12,7 @@ class SearchShowsByNameTest extends TestCase
     {
         $response = $this->json(
             'GET',
-            route('shows.search', ['q' => 'show-name']),
+            route('shows.search-by-name', ['q' => 'show-name']),
         );
 
         $response->assertStatus(Response::HTTP_OK);
