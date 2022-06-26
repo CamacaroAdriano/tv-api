@@ -36,11 +36,8 @@ class TVMazeController extends Controller
         /** @var ?string $showName */
         $showName = $request->query('q', '');
 
-        /** @var Collection $shows */
-        $shows = $this->client->searchShowsByName($showName);
-
         return response()->json(
-            $this->service->filterShowsByNameInCollection($showName, $shows),
+            $this->service->filterShowsByNameInCollection($showName, $this->client->searchShowsByName($showName)),
             Response::HTTP_OK
         );
     }
