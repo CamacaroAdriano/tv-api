@@ -3,6 +3,10 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Routing\Exception\MethodNotAllowedException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -46,5 +50,31 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
+    }
+
+    /**
+     * Render an exception into an HTTP response.
+     *
+     * @param $request
+     * @param Throwable $e
+     * @return \Illuminate\Http\Response|\Illuminate\Http\JsonResponse|\Symfony\Component\HttpFoundation\Response
+     * @throws Throwable
+     */
+    public function render($request, Throwable $e): \Illuminate\Http\Response|\Illuminate\Http\JsonResponse|\Symfony\Component\HttpFoundation\Response
+    {
+        $responseBody = [
+            'message'   => $e->getMessage(),
+            'real_code' => $e->getCode(),
+            'route'     => $request->fullUrl(),
+            'method'    => $request->method()
+        ];
+
+        $statusCode = match (true) {
+            $e instanceof NotFoundHttpException => Response::HTTP_NOT_FOUND,
+            $e instanceof MethodNotAllowedHttpException => Response::HTTP_METHOD_NOT_ALLOWED,
+            default => $e->getCode(),
+        };
+
+        return response()->json($responseBody, $statusCode);
     }
 }

@@ -13,6 +13,7 @@ class SearchShowsByNameTest extends TestCase
         return [
             [['q' => 'show-name'], Response::HTTP_OK],
             [['q' => ''], Response::HTTP_OK],
+            [['q' => '', 'a' => 'random'], Response::HTTP_OK],
             [[], Response::HTTP_BAD_REQUEST],
         ];
     }
@@ -28,5 +29,12 @@ class SearchShowsByNameTest extends TestCase
         $response = $this->json('GET', route('shows.search-by-name', $queryParams));
 
         $response->assertStatus($status);
+    }
+
+    public function test_searchShowsByNameMethodNotAllowed(): void
+    {
+        $response = $this->json('POST', route('shows.search-by-name', ['q' => 'show-name']));
+
+        $response->assertStatus(Response::HTTP_METHOD_NOT_ALLOWED);
     }
 }
