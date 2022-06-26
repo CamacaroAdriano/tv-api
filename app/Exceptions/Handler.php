@@ -75,6 +75,6 @@ class Handler extends ExceptionHandler
             default => $e->getCode() ?: Response::HTTP_INTERNAL_SERVER_ERROR,
         };
 
-        return response()->json($responseBody, 500);
+        return response()->json($responseBody, $statusCode);
     }
 }
