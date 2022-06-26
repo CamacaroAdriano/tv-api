@@ -50,7 +50,7 @@ services:
         image: 'redis:alpine'
         container_name: tv_redis
         ports:
-            - '${REDIS_PORT:-6379}:6379'
+            - '${REDIS_SAIL_PORT:-6379}:6379'
         volumes:
             - 'sail-redis:/data'
         networks:
