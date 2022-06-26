@@ -72,9 +72,9 @@ class Handler extends ExceptionHandler
         $statusCode = match (true) {
             $e instanceof NotFoundHttpException => Response::HTTP_NOT_FOUND,
             $e instanceof MethodNotAllowedHttpException => Response::HTTP_METHOD_NOT_ALLOWED,
-            default => $e->getCode(),
+            default => $e->getCode() ?: Response::HTTP_INTERNAL_SERVER_ERROR,
         };
 
-        return response()->json($responseBody, $statusCode);
+        return response()->json($responseBody, 500);
     }
 }
