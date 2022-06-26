@@ -8,13 +8,25 @@ use Tests\TestCase;
 
 class SearchShowsByNameTest extends TestCase
 {
-    public function test_searchShowsByName(): void
+    public function dataProvider(): array
     {
-        $response = $this->json(
-            'GET',
-            route('shows.search-by-name', ['q' => 'show-name']),
-        );
+        return [
+            [['q' => 'show-name'], Response::HTTP_OK],
+            [['q' => ''], Response::HTTP_OK],
+            [[], Response::HTTP_BAD_REQUEST],
+        ];
+    }
 
-        $response->assertStatus(Response::HTTP_OK);
+    /**
+     * @param array $queryParams
+     * @param int $status
+     * @return void
+     * @dataProvider dataProvider
+     */
+    public function test_searchShowsByName(array $queryParams, int $status): void
+    {
+        $response = $this->json('GET', route('shows.search-by-name', $queryParams));
+
+        $response->assertStatus($status);
     }
 }
